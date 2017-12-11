@@ -37,7 +37,7 @@
 <style>
 
     header.intro-header {
-        background-image: url('')
+        background-image: url('undefined')
     }
 </style>
 <!-- hack iOS CSS :active style -->
@@ -165,9 +165,20 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h1 id="什么是gredient-descent"><a href="#什么是gredient-descent" class="headerlink" title="什么是gredient descent"></a>什么是gredient descent</h1><p>机器学习定义好了lost function后，我们需要求得使得lost function最小化的结果。<br>因为不能对所有的参数进行穷举，所以需要通过优化方法寻找lost function的最小值，gredient descent就是其中一种优化方法。</p>
-<p><img src="/gredient-descent/gredient descent.jpg" alt="G"></p>
-<h1 id="why-gredient-descent-work"><a href="#why-gredient-descent-work" class="headerlink" title="why gredient descent work"></a>why gredient descent work</h1><p>假设有两个变量，x0, x1<br>taylor 展开：<br>f(x0, x1) = f(x0, y0) +</p>
+                <h1 id="什么是gredient-descent"><a href="#什么是gredient-descent" class="headerlink" title="什么是gredient descent"></a>什么是gredient descent</h1><p>当我们选了model，定义了lost function后，我们希望最小化loss function。由于不能对所有的参数进行穷举，因为有很多个参数，并且所有参数都有无数的取值，所以需要通过优化方法寻找lost function的最小值，gredient descent就是其中一种优化方法。</p>
+<p>假设我们有如下的loss function, 我们希望求得中间最小的点所对应的参数。<br><img src="/2017/12/11/gredient-descent/loss.jpg" title="loss"></p>
+<p>数学表达式如下：<br><img src="/2017/12/11/gredient-descent/gd_function.jpg" title="gredient descent function"></p>
+<p>可以按照以下步骤：</p>
+<ol>
+<li>先随机初始化参数</li>
+<li>求出当前点的梯度</li>
+<li>然后向梯度的反方向更新一小步</li>
+</ol>
+<p>重复2，3两步， 直到梯度为0，或者梯度很小</p>
+<img src="/2017/12/11/gredient-descent/gd_step.jpg" title="gredient descent step">
+<h1 id="Why-gredient-descent-work"><a href="#Why-gredient-descent-work" class="headerlink" title="Why gredient descent work"></a>Why gredient descent work</h1><p>首先我们来熟悉下taylor展开， 以下是一个变量$x$在$x_0$处的taylor展开，当我们在$x_0$附近时，由于$(x-x_0)$非常小，可以近似的只使用到常数和一次项，二次及以上的项忽略。<br><img src="/2017/12/11/gredient-descent/taylor_series.jpg" title="taylor_series"></p>
+<p>同理，假设有两个自变量$x$和$y$， 如果（$x$,$y$)在很接近($x_0$, $y_0$)时，我们可以在($x_0$, $y_0$)处将其进行如下taylor展开， 只考虑了常数项和一次项， 二次及以上的项忽略。<br><img src="/2017/12/11/gredient-descent/multi_taylor_series.jpg" title="multi_taylor_series"></p>
+<p>回到我们的最小化loss function的问题上， 假设我们只有2个自变量$\theta_1$和$\theta_2$，此时我们有当前的参数值(随机初始化)，分别取为a和b，并且可以求得loss在当前位置的梯度，在(a, b)附近，我们可以对其进行上述的taylor展开。<br><img src="/2017/12/11/gredient-descent/loss_taylor_series.jpg" title="loss_taylor_series"><br>可以将loss function转化成<br>$L(\theta) \approx s + [u, v]^\top * [(\theta_1 - a), (\theta_2 - b)]^\top $<br>此时的$s, u, v, a, b$ 都是常数，参数为$\theta_1$和$\theta_2$, 所以此时为了最小化loss， 应该使得$[(\theta_1 - a), (\theta_2 - b)]^\top$ 的方向与$[u, v]^\top$方向相反。 所以$[(\theta_1 - a), (\theta_2 - b)]^\top = - \eta [u, v]^\top$， 则$[\theta_1, \theta_2]^\top = [a, b]^\top - \eta [u, v]^\top$, 即此时最优的参数值。<br> <strong>但是需要注意最开始的前提， 只有当范围很小时，我们才可以使用这样的Taylor进似， 所以需要$\eta$， 即学习率足够小才行。</strong></p>
 <h1 id="gredient-descent-的问题"><a href="#gredient-descent-的问题" class="headerlink" title="gredient descent 的问题"></a>gredient descent 的问题</h1><ul>
 <li>saddle point</li>
 <li>local minimal</li>
@@ -195,7 +206,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是gredient-descent"><span class="toc-text">什么是gredient descent</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#why-gredient-descent-work"><span class="toc-text">why gredient descent work</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gredient-descent-的问题"><span class="toc-text">gredient descent 的问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gredient-descent-的优化"><span class="toc-text">gredient descent 的优化</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是gredient-descent"><span class="toc-text">什么是gredient descent</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Why-gredient-descent-work"><span class="toc-text">Why gredient descent work</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gredient-descent-的问题"><span class="toc-text">gredient descent 的问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gredient-descent-的优化"><span class="toc-text">gredient descent 的优化</span></a></li></ol>
                 </div>
             </div>
         </div>
@@ -322,7 +333,22 @@
 <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <!--wechat title img-->
-<img class="wechat-title-img" src="">
+<img class="wechat-title-img" src="undefined">
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 
 </html>

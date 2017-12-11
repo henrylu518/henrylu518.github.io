@@ -37,7 +37,7 @@
 <style>
 
     header.intro-header {
-        background-image: url('')
+        background-image: url('undefined')
     }
 </style>
 <!-- hack iOS CSS :active style -->
@@ -245,9 +245,9 @@
                 <div class="site-heading text-center">
                     <div class="about-me">
                         <!--移动端头部显示-->
-                        <img src=""/>
+                        <img src="undefined"/>
                         <h5><a href="/about/">Henry Lu</a></h5>
-                        <p></p>
+                        <p>undefined</p>
                     </div>
                 </div>
             </div>
@@ -275,9 +275,7 @@
         
         <div class="post-content-preview">
             <p>
-                什么是gredient descent机器学习定义好了lost function后，我们需要求得使得lost function最小化的结果。因为不能对所有的参数进行穷举，所以需要通过优化方法寻找lost function的最小值，gredient descent就是其中一种优化方法。
-
-why ..
+                什么是gredient descent当我们选了model，定义了lost function后，我们希望最小化loss function。由于不能对所有的参数进行穷举，因为有很多个参数，并且所有参数都有无数的取值，所以需要通过优化方法寻找lost function的最小值，gredient de..
             </p>
         </div>
     </a>
@@ -438,7 +436,22 @@ why ..
 <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <!--wechat title img-->
-<img class="wechat-title-img" src="">
+<img class="wechat-title-img" src="undefined">
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 
 </html>
